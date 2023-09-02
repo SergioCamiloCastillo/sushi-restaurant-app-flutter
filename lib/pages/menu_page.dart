@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sushi_restaurant_app/components/button.dart';
 import 'package:sushi_restaurant_app/components/food_tile.dart';
 import 'package:sushi_restaurant_app/models/food.dart';
+import 'package:sushi_restaurant_app/models/shop.dart';
 import 'package:sushi_restaurant_app/pages/food_detail_page.dart';
 import 'package:sushi_restaurant_app/theme/colors.dart';
 
@@ -14,12 +16,10 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  List foodMenu = [
-    FoodModel('Sushi de salmón', "45.000", 'lib/images/sushi3.png', 4.4),
-    FoodModel('Atún', "12.000", 'lib/images/rollo-de-sushi.png', 4.4)
-  ];
   //navigate to food item details
   void navigateToFoodDetails(int index) {
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
     print('Navigate to Food Details for index: $index');
     Navigator.push(
         context,
@@ -30,6 +30,8 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
